@@ -11,6 +11,27 @@
     (c) the median (or the nth smallest integer) of all 2n combined elements.\\
     For instance, X = (4, 7, 8, 9, 12) and Y = (1, 2, 5, 9, 10), then median = 7, the nth smallest, in the combined list (1, 2, 4, 5, 7, 8, 9, 9, 10, 12). [Hint: use the concept similar to binary search]
 
-    \section*{Solution}
-    ******* SOLUTION GOES HERE *******
-
+    \section*{Solution:}
+    	\subsection*{(a)}
+    		\begin{algorithm}
+    			\caption{Calculate the maximum of two sorted arrays }
+    			\begin{algorithmic}
+    				\vspace{0.25cm}
+    				\RETURN max(X[n-1], Y[n-1])
+    				\vspace{0.25cm}
+    			\end{algorithmic}
+    		\end{algorithm}
+    	
+    	\subsection*{(b)}
+    		\begin{algorithm}[H]
+    			\caption{Calculate the second largest element of two sorted arrays}
+    			\begin{algorithmic}
+    				\IF{X[n-1] == Y[n-1]}
+    				\RETURN {\textit{max}(X[n-2], Y[n-2])
+    				\ELSIF{{X[n-1] $<$ Y[n-1]}}
+    				\RETURN \textit{max}(X[n-1], Y[n-2])
+    				\ELSE
+    				\RETURN \textit{max}(X[n-1], Y[n-2])
+    				\ENDIF
+    			\end{algorithmic}
+    		\end{algorithm}
