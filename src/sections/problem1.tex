@@ -1,7 +1,11 @@
 %! Author = rickr
 %! Date = 8/31/2021
-
-
+	\newdimen\boxitspace\boxitspace=3pt% boxit from eplain
+	\long\def\boxit#1{\vbox{\hrule\hbox{\vrule\kern\boxitspace\vbox{%
+					\kern\boxitspace\parindent0pt#1\kern\boxitspace}%
+				\kern\boxitspace\vrule}\hrule}}
+	\def\aryitem#1{\boxit{\hbox to 1.4em{\hfil#1\hfil}}}% change 1.4em if needed
+	\let\MS\multispan% shorten a little
 
     \section*{Problem 1}
     \noindent
@@ -13,25 +17,56 @@
 
     \section*{Solution:}
     	\subsection*{(a)}
-    		\begin{algorithm}
-    			\caption{Calculate the maximum of two sorted arrays }
-    			\begin{algorithmic}
-    				\vspace{0.25cm}
-    				\RETURN max(X[n-1], Y[n-1])
-    				\vspace{0.25cm}
-    			\end{algorithmic}
-    		\end{algorithm}
+  				\begin{algorithm}[H]
+  					\caption{Calculates the largest element of two sorted arrays}
+  					\begin{algorithmic}[1]
+  						\Procedure{{largestElement} }{\textbf{int} X[n], \textbf{int} Y[n]}
+  						\State \textbf{return} \textit{max}(X[n-1], Y[n-1])
+  						\EndProcedure
+  					\end{algorithmic}
+  				\end{algorithm}
+  		\subsection*{(b)}
+  			\begin{algorithm}[H]
+  				\caption{Calculate second largest element of two sorted arrays}
+  				\begin{algorithmic}[1]
+  					\Procedure{{{secondLargest} } }{\textbf{int} X[n], \textbf{int} Y[n]}
+  					\If{X[n-1] == Y[n-1]}
+  					\State\textbf{return} \textit{max}(X[n-2], Y[n-2])
+  					\ElsIf{X[n-1] $<$ Y[n-1]}
+  					\State\textbf{return} \textit{max}(X[n-1], Y[n-2])
+  					\Else
+  					\State\textbf{return} \textit{max}(X[n-2], Y[n-1])
+  					\EndIf
+  					\EndProcedure
+  					
+  				\end{algorithmic}
+  			\end{algorithm}	
+    	\subsection*{(c)}
+    		By looking at the two sorted arrays, we see that the median value will correspond to the nth term in the list of length 2n, and that this portion of the list contains part of X[\:] and Y[\:]. Also, note that the last element of any subset of the two sorted lists, starting at index zero, will always correspond to the kth element. \\
+    		\begin{center}\leavevmode\vbox{
+    			\halign{&\thinspace\aryitem{$\mathstrut#$}\thinspace\cr
+	    			1&2&4&5&7&8&9&9&10&12\cr
+	    			\MS5\upbracefill\cr
+	    			\MS5\hfill median$=2\frac{n}{2}=n$\hfill&\omit&\omit&\omit&\MS3\hfill\cr
+    		}}
+    	\end{center}
+    	\noindent
+    		If we look at the two list individually, we find that the elements that lead up to the partition of the kth element are \\
+    		\begin{center}\leavevmode\vbox{
+    			\halign{&\thinspace\aryitem{$\mathstrut#$}\thinspace\cr
+	    			4&7&\omit\quad&\omit\quad &8&9&12\cr
+	    			1&2&5&\omit\quad &9&10\cr
+    		}}
+    	\end{center}
+    	\noindent
+    	Let the elements to the left and right of the partition of the first array be $l_x$ and $r_x$ respectively. And similarly, for the second array, $l_y$ and $r_y$. Notice that for the solution to be valid, ie, for all the elements to the left of the partition to be less than all the elements to the right, requires
+    	\begin{equation*}
+    		\begin{split}
+    			l_x \leq r_y \\
+    			l_y \leq r_x
+    		\end{split}
+    	\end{equation*}
+    	Only these conditions need to be checked because we are guaranteed to have $l_x \leq r_x$ and $l_y \leq r_y$. Once these conditions are satisfied, the kth element will be $max(l_x, l_y)$ because we know that in the combined array, the largest element to the left of the partition corresponds to the kth element.\\
     	
-    	\subsection*{(b)}
-    		\begin{algorithm}[H]
-    			\caption{Calculate the second largest element of two sorted arrays}
-    			\begin{algorithmic}
-    				\IF{X[n-1] == Y[n-1]}
-    				\RETURN {\textit{max}(X[n-2], Y[n-2])
-    				\ELSIF{{X[n-1] $<$ Y[n-1]}}
-    				\RETURN \textit{max}(X[n-1], Y[n-2])
-    				\ELSE
-    				\RETURN \textit{max}(X[n-1], Y[n-2])
-    				\ENDIF
-    			\end{algorithmic}
-    		\end{algorithm}
+    	The question is now, how do we optimize the brute force method of finding the partition.
+
