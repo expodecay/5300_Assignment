@@ -66,7 +66,33 @@
     			l_y \leq r_x
     		\end{split}
     	\end{equation*}
-    	Only these conditions need to be checked because we are guaranteed to have $l_x \leq r_x$ and $l_y \leq r_y$. Once these conditions are satisfied, the kth element will be $max(l_x, l_y)$ because we know that in the combined array, the largest element to the left of the partition corresponds to the kth element.\\
-    	
-    	The question is now, how do we optimize the brute force method of finding the partition.
-
+    	Only these conditions need to be checked because we are guaranteed to have $l_x \leq r_x$ and $l_y \leq r_y$. Once these conditions are satisfied, the kth element will be $max(l_x, l_y)$ because we know that in the combined array, the largest element to the left of the partition corresponds to the kth element. To find the partition, we apply a binomial search to only one array while checking the conditions against both arrays. We start by taking the midpoint of the first array
+    	\begin{equation*}
+    		mid1 = \frac{low + high}{2}
+    	\end{equation*}
+    	and let the remaining $ mid2 = n-mid1$ elements be taken from the second array, where low and high are initially set to 0 and n respectively. if we find that $l_x > r_y$, we cut out the right half of the array by assigning $high = mid1 - 1$ and if we find that $l_y > r_x$, we remove the left half of the array by assigning $low = mid + 1$. Since the algorithm utilizes a binomial search, the time complexity will be $\mathcal{O}(n\log{}n)$
+    	\begin{algorithm}[H]
+    		\caption{Calculate median element of two sorted arrays}
+    		\begin{algorithmic}[1]
+    			\Procedure{{{medianElement} } }{\textbf{int} X[n], \textbf{int} Y[n]}
+    			\State int low = 0
+    			\State int high = X.length
+    			\While{low $\leq$ high}
+	    			\State int mid1 = (low + high)/2
+	    			\State int mid2 = X.length - mid1
+	    			\State lx = X[mid1 - 1]
+	    			\State ly = Y[mid2 - 1]
+	    			\State rx = X[mid1]
+	    			\State ry = Y[mid2]
+	    			\If{lx $\leq$ ry \: \&\& \: ly $\leq$ rx}
+	    				\State \textbf{return} \textit{max}(lx, ly)
+	    				\ElsIf{lx $>$ ry}
+	    					\State high = mid1-1
+	    				\ElsIf{ly $>$ rx}
+	    					\State low = mid1 + 1
+	    			\EndIf
+    			\EndWhile
+    			\EndProcedure
+    			
+    		\end{algorithmic}
+    	\end{algorithm}
