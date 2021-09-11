@@ -70,7 +70,7 @@
     	\begin{equation*}
     		mid1 = \frac{low + high}{2}
     	\end{equation*}
-    	and let the remaining $ mid2 = n-mid1$ elements be taken from the second array, where low and high are initially set to 0 and n respectively. if we find that $l_x > r_y$, we cut out the right half of the array by assigning $high = mid1 - 1$ and if we find that $l_y > r_x$, we remove the left half of the array by assigning $low = mid + 1$. Since the algorithm utilizes a binomial search, the time complexity will be $\mathcal{O}(n\log{}n)$
+    	and let the remaining $ mid2 = n-mid1$ elements be taken from the second array, where low and high are initially set to 0 and n respectively. If we find that $l_x > r_y$, we cut out the right half of the array by assigning $high = mid1 - 1$ and if we find that $l_y > r_x$, we remove the left half of the array by assigning $low = mid + 1$. Since the algorithm utilizes a binomial search, the time complexity will be $\mathcal{O}(\log{}n)$.
     	\begin{algorithm}[H]
     		\caption{Calculate median element of two sorted arrays}
     		\begin{algorithmic}[1]

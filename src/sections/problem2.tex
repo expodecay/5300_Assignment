@@ -16,4 +16,77 @@
     (d) What is the complexity of your algorithm?\\
 
 \section*{Solution}
-******* SOLUTION GOES HERE *******
+	\subsection*{(a)}
+		For a solution to exist, two conditions must be satisfied:\\
+		$\bullet$ The sum of the total number integers $\sum_{i=1}^{n} z_i$ must be even. If it is odd, then the set cannot be divided into two equal subsets. \\
+		$\bullet$ If $\exists$ a sum $S_1 = \sum_{i=1}^{m} z_i = \frac{1}{2}\sum_{i=1}^{n} z_i $, where $m < n$, then we are guaranteed to have the remaining $Z-Z'$ elements equal to $S_2 = \frac{1}{2}\sum_{i=1}^{n} z_i$. The set can be broken into two equal sums.\\
+		
+		\noindent
+		Consider the example of $Z = \{1,3,5,11\}$. The fist condition passes with $\sum_{i=1}^{n} z_i = 20$ \ding{51} however, the second condition requires us to find a subset whose sum is equal to $S_1 = \frac{1}{2}\sum_{i=1}^{n} z_i = 10$. The best we can do in this case is $Z_1 = \{1,3,5\}\rightarrow S_1 = 9\neq 10$ and $Z_2 = \{11\}\rightarrow S_2 = 11$ \ding{55}. $\therefore$ this $Z$ input will return false.\\
+		
+		\noindent
+		Now consider $Z = \{3,1,1,2,2,1\}$. The first condition passes with $\sum_{i=1}^{n} z_i = 10$ \ding{51}, and the second condition passes since $Z_1 = \{3,1,1\} \rightarrow S_1 = 5$ and $Z_2 = \{2,2,1\} \rightarrow S_2 = 5$ \ding{51}. $\therefore$ this $Z$ input will return true.
+
+		\begin{center}
+			\scalebox{0.75}{%}
+				\begin{tabular}{|c|c|c|c|c|c|c|}
+					\hline
+					\multicolumn{7}{|c|}{Initial}\\
+					\hline
+					\backslashbox{Z $\downarrow$ }{Sum (S) $\rightarrow$}&0&1 &2 &3 &4 & 5 \\
+					\hline
+					&1 &0 &0 &0 &0 &0\\
+					\hline
+					$z_1$=3&1 & & & & &\\
+					\hline
+					$z_2$=1&1 & & & & &\\
+					\hline
+					$z_3$=1&1 & & & & &\\
+					\hline
+					$z_4$=2&1 & & & & &\\
+					\hline
+					$z_5$=2&1 & & & & &\\
+					\hline
+					$z_6$=1&1 & & & & &\\
+					\hline
+			\end{tabular}}\quad$\Rightarrow$\quad
+			\scalebox{0.75}{%}
+				\begin{tabular}{|c|c|c|c|c|c|c|}
+					\hline
+					\multicolumn{7}{|c|}{Final}\\
+					\hline
+					\backslashbox{Z $\downarrow$ }{Sum (S) $\rightarrow$}&0&1 &2 &3 &4 & 5 \\
+					\hline
+					&1 &0 &0 &0 &0 &0\\
+					\hline
+					$z_1$=3&1 &0&0&1&0&0\\
+					\hline
+					$z_2$=1&1 &1&0&1&1&0\\
+					\hline
+					$z_3$=1&1 &1&1&1&1&1\\
+					\hline
+					$z_4$=2&1 &1&1&1&1&1\\
+					\hline
+					$z_5$=2&1 &1&1&1&1&1\\
+					\hline
+					$z_6$=1&1 &1&1&1&1&\textcolor{red}{1}\\
+					\hline
+			\end{tabular}}
+		\end{center}
+		Starting with the first empty cell of the matrix:\\
+		$1-3=\textit{undefined}\rightarrow\text{false}\therefore$ we cannot form the sum=1 using integer 3\\
+		$2-3=\textit{undefined}\rightarrow\text{false}\therefore$ we cannot form the sum=2 using integer 3\\
+		$3-3=0\rightarrow\text{true\footnote[1]{}}\therefore$ we CAN form S=3 using z=3 (populate cell with 1) Note: s(3) = 0 and s(0) = 1\\\footnotetext[1]{We take a step up to the previous row and traverse to the left until we reach the column value that is equal to the difference between the sum and integer.}
+		$4-3=1\rightarrow\text{false}$ Note: s(4) = 0 and s(1) = 0\\
+		$5-3=2\rightarrow\text{false}$ Note: s(5) = 0 and s(2) = 0\\
+		The emerging pattern can be summarized as: 
+		if the ith-1 cell is equal to true OR the difference between s and z for that particular row and column is true, then we take true. ie if $f(s) = 1 || f(s-z) = 1$. Therefore, our functional equation can be expressed as
+		\begin{equation*}
+			\boxed{f_i[s,z_i] = max\{f_{i-1}(s), f_{i-1}(s-z_i)\}}
+		\end{equation*}
+		If we find the last cell to be true, then it IS possible to form the value $\frac{S}{2}$ with the given assortment of Z.
+
+		
+		
+		
+		
