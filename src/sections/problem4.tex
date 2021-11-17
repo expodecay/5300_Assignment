@@ -2,6 +2,63 @@
 %! Date = 9/1/2021
 
 \section*{Problem 4}
-
+	Given that PARTITION problem (described below) is a NP-Complete problem, prove that the SUM OF SUBSETS problem (described below) is NP-Complete by reducing PARTITION problem to it.\\
+	
+	\noindent
+	\underline{\textbf{PARTITION}}:\\
+	\underline{Instance}: A finite set of positive integers $Z = \{ z_1 , z_2 , ... , z_n \}$.\\
+	\underline{Question}: Is there a subset Z' of Z such that \\
+	Sum of all numbers in Z' = Sum of all numbers in Z-Z'\\
+	
+	\noindent
+	\underline{\textbf{SUM OF SUBSETS:}}\\
+	\underline{Instance:} A finite set of positive integers $A = \{a_1, a_2, \dots, a_m\}$ and $M$.\\
+	\underline{Question:} Is there a subset $A'$ in $A$ s.t. $\Sigma_{a_i \in A'} a_i = M?$ \\
+	
+	\noindent
+	(a) Give a nondeterministic polynomial time algorithm for the SUM OF SUBSETS problem.\\
+	(b) Define the transformation from the PARTITION problem to the SUM OF SUBSETS problem.\\
+	(c) Explain that the transformation described in part (b) satisfies: if the partition problem has a solution then the sum-of-subsets has a solution, and vice versa.
 \section*{Solution}
-******* SOLUTION GOES HERE *******
+	\subsection*{(a)}
+		\begin{algorithm}[H]
+			\caption{Nondeterministic algorithm for the Sum-of-Subsets problem}
+			\begin{algorithmic}[1]
+				\State Guess a subset A' of A
+				\State Check that the sum of A' is equal to M
+				\If {yes}
+				\State \textbf{return} 1
+				\Else 
+				\State \textbf{return} 0
+				\EndIf
+			\end{algorithmic}
+		\end{algorithm}
+	The algorithm will run in polynomial time since checking the sum of a sequence is on the order of $O(n)$. Since the algorithm utilizes a guessing and is able to verify the guess in polynomial time, we can say that the Sum-of-Subsets problem resides in NP. 
+	\subsection*{(b)}
+		
+		Let $f(\langle Z \rangle)$ be a mapping that takes an instance of the Partition problem $\langle Z \rangle$ and returns an instance of Sum-of-Subsets problem $\langle A, M \rangle$. Let $f()$ create a target sum M from Z such that \[ \frac{1}{2}\sum_{i=1}^{n} z_i\equiv M\] If we let $n=m$ and let $Z = A$, then $f:\langle Z \rangle \rightarrow \langle A,M\rangle$
+		\subsection*{(c)}
+		\begin{proof}
+			We can evaluate the correctness of the mapping f() by evaluating the decision problems $\Pi$ of $\langle Z \rangle$ and $\langle A, M \rangle$. That is, f() is correct iff for every $\Pi_{\langle Z \rangle} = Y$, $\Pi_{\langle A, M \rangle} = Y$, where $Y_{\Pi}\subseteq D_{\Pi}$. 
+			\begin{itemize}
+				\item $Y_{\langle Z \rangle} \rightarrow Y_{\langle A, M \rangle}$\\
+					\vspace{-0.25cm}
+					$Y_{\langle Z \rangle} :$ Assume that Z can be partitioned into two sets with equal sum.
+					\[ \sum_{z\in Z'} z \quad= \sum_{z\in Z-Z'}z \]
+					 $Y_{\langle A, M \rangle} :$ For the above to be true, each of these sets sums to half of the total in Z, that is they both equal M, where 
+					\[ \frac{1}{2}\sum_{i=1}^{n} z_i \equiv M\]
+					Therefore $A = Z$ has a subset that sums to M. 
+			\end{itemize}
+			To complete the correctness proof, we need to map all 'no' outputs of $\Pi_{\langle Z \rangle}$ to the 'no' outputs of $\Pi_{\langle A,M \rangle}$, however this can be accomplished by proving that an instance $Y_{\langle A, M \rangle}$ will map to $Y_{\langle Z \rangle}$, i.e. the reverse of the proof above. 
+			\begin{itemize}
+				\item $Y_{\langle A, M \rangle} \rightarrow Y_{\langle Z \rangle} $\\
+				\vspace{-0.25cm}
+					$Y_{\langle A,M \rangle} :$ Assume that A has a subset that sums to $M = \frac{1}{2}\sum_{i=1}^{n} z_i$\\
+					
+					\noindent
+					We are guaranteed that the remainder of the elements in A will also be equal to $\frac{1}{2}\sum_{i=1}^{n} z_i$, so\\
+					$Y_{\langle Z \rangle} :$ can be partitioned into two sets with equal sum.  
+			\end{itemize}
+		\end{proof}
+	The above is an example of 'proof by restriction'. The idea consists of showing that $\Pi$ contains a known NP-complete problem $\Pi'$ as a special case by imposing a restriction on the instances of $\Pi$ so that the resulting problem preserves a one-to-one correspondence between the 'yes' and 'no' answers. It's worth noting that the resulting problem need not be an exact duplicate of the original problem so long as the correspondence is obvious. 
+	

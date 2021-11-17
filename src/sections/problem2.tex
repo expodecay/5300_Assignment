@@ -13,17 +13,16 @@
     (c) Give an example of 5 numbers with a total of 21 as an input instance for 1-to-2 PARTITION
     
      problem, and show how your algorithm works on this input instance.\\
-    (d) What is the complexity of your algorithm?\\
-
+    (d) What is the complexity of your algorithm?
 \section*{Solution}
 	\subsection*{(a)}
-		For a solution to exist, two conditions must be satisfied:\\
+		Consider the case of $\sum Z = \sum Z-Z'$. For a solution to exist, two conditions must be satisfied:\\
 		$\bullet$ The sum of the total number integers $\sum_{i=1}^{n} z_i$ must be even. If it is odd, then the set cannot be divided into two equal subsets. \\
 		$\bullet$ If $\exists$ a sum $S_1 = \sum_{i=1}^{m} z_i = \frac{1}{2}\sum_{i=1}^{n} z_i $, where $m < n$, then we are guaranteed to have the remaining $Z-Z'$ elements equal to $S_2 = \frac{1}{2}\sum_{i=1}^{n} z_i$. The set can be broken into two equal sums.\\
 		
 		\noindent
 		Consider the example of $Z = \{1,3,5,11\}$. The fist condition passes with $\sum_{i=1}^{n} z_i = 20$ \ding{51} however, the second condition requires us to find a subset whose sum is equal to $S_1 = \frac{1}{2}\sum_{i=1}^{n} z_i = 10$. The best we can do in this case is $Z_1 = \{1,3,5\}\rightarrow S_1 = 9\neq 10$ and $Z_2 = \{11\}\rightarrow S_2 = 11$ \ding{55}. $\therefore$ this $Z$ input will return false.\\
-		
+
 		\noindent
 		Now consider $Z = \{3,1,1,2,2,1\}$. The first condition passes with $\sum_{i=1}^{n} z_i = 10$ \ding{51}, and the second condition passes since $Z_1 = \{3,1,1\} \rightarrow S_1 = 5$ and $Z_2 = \{2,2,1\} \rightarrow S_2 = 5$ \ding{51}. $\therefore$ this $Z$ input will return true.
 
@@ -35,7 +34,7 @@
 					\hline
 					\backslashbox{Z $\downarrow$ }{Sum (S) $\rightarrow$}&0&1 &2 &3 &4 & 5 \\
 					\hline
-					&1 &0 &0 &0 &0 &0\\
+						  &1 &0 &0 &0 &0 &0\\
 					\hline
 					$z_1$=3&1 & & & & &\\
 					\hline
@@ -77,15 +76,80 @@
 		$1-3=\textit{undefined}\rightarrow\text{false}\therefore$ we cannot form the sum=1 using integer 3\\
 		$2-3=\textit{undefined}\rightarrow\text{false}\therefore$ we cannot form the sum=2 using integer 3\\
 		$3-3=0\rightarrow\text{true\footnote[1]{}}\therefore$ we CAN form S=3 using z=3 (populate cell with 1) Note: s(3) = 0 and s(0) = 1\\\footnotetext[1]{We take a step up to the previous row and traverse to the left until we reach the column value that is equal to the difference between the sum and integer.}
+		\hspace{-0.25cm}
 		$4-3=1\rightarrow\text{false}$ Note: s(4) = 0 and s(1) = 0\\
 		$5-3=2\rightarrow\text{false}$ Note: s(5) = 0 and s(2) = 0\\
 		The emerging pattern can be summarized as: 
-		if the ith-1 cell is equal to true OR the difference between s and z for that particular row and column is true, then we take true. ie if $f(s) = 1 || f(s-z) = 1$. Therefore, our functional equation can be expressed as
+		if the ith-1 cell is equal to true OR the difference between s and z for that particular row and column is true, then we take true. ie if $f(s) = 1 \quad || \quad f(s-z) = 1$. Therefore, our functional equation can be expressed as
 		\begin{equation*}
 			\boxed{f_i[s,z_i] = max\{f_{i-1}(s), f_{i-1}(s-z_i)\}}
 		\end{equation*}
-		If we find the last cell to be true, then it IS possible to form the value $\frac{S}{2}$ with the given assortment of Z.
+		If we find the last cell to be true, then it IS possible to form the value $\frac{S}{2}$ with the given assortment of Z. This relation also holds for the case of $\sum Z' = \sum 2(Z-Z')$ since we are just moving the partition while preserving the total sum. However we do need to change the first condition to only allow a target sum divisible by 3, in which case the second condition is changed to $S_1 = \frac{2}{3}\sum_{i=1}^{n} z_i$ and $S_2 = \frac{1}{3}\sum_{i=1}^{n} z_i$. 
+	
+		\subsection*{(b)}
+		\vspace{-0.5cm}
+			\begin{algorithm}[H]
+				\caption{1-to-2 PARTITION}
+				\begin{algorithmic}[1]
+					\Procedure{{{partition}}}{\textbf{int} Z[n]}
+					
+						\State int sum = 0, s = 0
+						
+						\For{i $\leftarrow$ 1 to n} \Comment{$\mathcal{O}(n)$}
+							\State sum += Z[i]
+						\EndFor
+						
+						\If{sum \% 3 $\neq$ 0}
+							\State\textbf{return} false \Comment{Check that the first condition is satisfied}
+						\EndIf
+						
+						\State s = sum / 3
+						\State int f[n][s] \Comment{Initialize a matrix}
+						
+						\For{j $\leftarrow$ 1 to s} 
+							\State f[0][j] = 0
+							\State f[j][0] = 1
+						\EndFor
+						
+						\For{i $\leftarrow$ 1 to n}
+							\For{j $\leftarrow$ 0 to s}
+								\If{j $<$ Z[i-1]}
+									\State f[i][j] = f[i-1][j] \Comment{The cell above}
+									\Else
+										\State f[i][j] = \textit{max}\{f[i-1][j] , f[i-1][j-Z[i-1]]\}
+								\EndIf
+							\EndFor
+						\EndFor
+						\State \textbf{return} f[n][s]
+					\EndProcedure
+				\end{algorithmic}
+			\end{algorithm}
 
+		\subsection*{(c)}
+			Let $Z = 1,2,4,6,8$, $sum = \sum_{i = 1}^{n} z[i] = 21$, and $M = \frac{1}{3}sum = 7$
+				\begin{center}
+				\scalebox{0.75}{%}
+					\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+						\hline
+						\backslashbox{Z $\downarrow$ }{Sum (S) $\rightarrow$}&0&1 &2 &3 &4 & 5 & 6 & 7\\
+						\hline
+						&1 &0 &0 &0 &0 &0& 0 & 0 \\
+						\hline
+						$z_1$=1&1 &1 &0 &0 &0 &0 &0 &0\\
+						\hline
+						$z_2$=2&1 &1 &1 &1 &0 &0 &0 &0\\
+						\hline
+						$z_3$=4&1 &1 &1 &1 &1 &1 &1 &1\\
+						\hline
+						$z_4$=6&1 &1 &1 &1 &1 &1 &1 &1\\
+						\hline
+						$z_5$=8&1 &1 &1 &1 &1 &1 &1 &1\\
+						\hline
+				\end{tabular}}
+			\end{center}
+			Since the algorithm halts with a 1 on cell $f(z_5, 7)$, the instance will return \textit{true}. The algorithm can be slightly improved by returning a \textit{true} at the first occurrence of the target sum $s[7] \leftarrow 1$ because we know at that point that the remaining elements will sum to $\frac{2}{3}$ total sum. 
+		\subsection*{(d)}
+			Since the algorithm must iterate through $\frac{1}{3}sum$ columns and $Z$  rows, the time complexity must be on the order of $O(Tn)$, where $T = \frac{sum}{3}$.
 		
 		
 		

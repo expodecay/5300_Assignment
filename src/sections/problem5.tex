@@ -2,6 +2,74 @@
 %! Date = 9/1/2021
 
 \section*{Problem 5}
-
+	Prove that the 0/1 KNAPSACK problem is NP-Hard. (One way to prove this is to
+	prove the decision version of 0/1 KNAPSACK problem is NP-Complete. In this problem,
+	we use PARTITION problem as the source problem.)\\
+	
+	\noindent
+	(a) Give the decision version of the O/1 KNAPSACK problem, and name it as DK.\\
+	(b) Show that DK is NP-complete (by reducing PARTITION problem to DK).\\
+	(c) Explain why showing DK, the decision version of the O/1 KNAPSACK problem, is
+	NP-Complete is good enough to show that the O/1 KNAPSACK problem is NP-hard.
+\vspace{-0.25cm}
 \section*{Solution}
-******* SOLUTION GOES HERE *******
+	\subsection*{(a)}
+		\underline{\textbf{DECISION O/1 KNAPSACK (DK):}}\\
+		
+		\noindent
+		\underline{Instance:} Given a set of items $X=\{x_1, x_2 \dots x_n\}$, each with a set of weights $W = \{w_i, w_2 \dots w_n\}$, and a set of values $V = \{v_1, v_2, \dots v_n\}$, a maximum capacity $W_{max}$ and a target profit $V_t$.\\
+		
+		\noindent
+		\underline{Question:} Is there configuration of items in $X$ such that the following conditions are satisfied:
+		\begin{equation*}
+				\sum_{i=1}^{n} x_i w_i \leq W_{max} \text{\quad and \quad} \sum_{i=1}^{n} x_i v_i \geq V_t
+		\end{equation*}
+		where each $x_i \in\{0,1\}$
+	\subsection*{(b)}
+		 i) $DK \in NP$
+			\begin{algorithm}[H]
+				\caption{Nondeterministic algorithm for DK}
+				\begin{algorithmic}[1]
+					\State Guess a sequence for $X$
+					\State Check the sums $x_i w_i\leq W_{max}$ \&\& $x_i v_i \geq V_t$ 
+					\If {yes}
+					\State \textbf{return} 1
+					\Else 
+					\State \textbf{return} 0
+					\EndIf
+				\end{algorithmic}
+			\end{algorithm}
+		\noindent
+		ii) Select a known NP-complete problem $\Pi'$\\
+			\indent Let $\Pi' = $ PARTITION\\
+		iii) Construct a transformation $f: \Pi' \rightarrow \Pi$\\	
+			\indent $f$: Consider an instance of the PARTITION problem $Z = \{z_1, z_2, \dots z_n$\}. Let \[w_i = z_i \: \text{ and }\: v_i = z_i \qquad \forall \: 1 \leq i \leq n\] \[W_{max} = V_t = \frac{1}{2}\sum_{i=1}^{n}z_i\]
+			
+			If $X$ is a 'yes' instance for PARTITION then $\exists$ Z' and Z-Z' such that 
+			\[\sum_{i\in Z'}z_i = \sum_{i\in Z-Z'}z_i = \frac{1}{2}\sum_{i=1}^{n}z_i \]
+			
+			\noindent
+			To prove correctness, we need to show that 'yes' instances have a one-to-one mapping between the two problems.
+			\begin{proof}
+				If we let the knapsack contain items from $Z'$ then it follows that 
+				\[ \sum_{i\in Z'}z_i = \sum_{i\in Z'}w_i = W_{max} \text{\: and \:}\sum_{i\in Z'}z_i = \sum_{i\in Z'}v_i = V_t\]
+				
+				$\therefore$ $X \in Y$ for PARTITION $\Rightarrow$ $f(X) \in Y$ for DK.\\
+				
+				Likewise, if $f(X)\in Y$ for DK with the chosen set $Z'$, then
+				\[\sum_{i\in Z'}w_i = \sum_{i\in Z'}z_i \leq W_{max} = \frac{1}{2}\sum_{i=1}^{n}z_i \text{\: and \:} \sum_{i\in Z'}v_i = \sum_{i\in Z'}z_i \geq V_t = \frac{1}{2}\sum_{i=1}^{n}z_i\]
+				
+				which implies that
+				\[\sum_{i\in Z'}z_i = \frac{1}{2}\sum_{i=1}^{n}z_i \text{\quad and \:} \sum_{i\in Z-Z'}z_i = \sum_{i=1}^{n}z_i - \frac{1}{2}\sum_{i=1}^{n}z_i = \frac{1}{2}\sum_{i=1}^{n}z_i\]
+			\indent $\therefore$ $f(X) \in Y$ for DK $\Rightarrow$ $X \in Y$ for PARTITION.
+			\end{proof}
+			
+			\noindent
+	    iv) Prove that $f$ is a polynomial time transformation\\
+			\indent The transformation from PARTITION to DK consists only of assignment statements and so it is clear \indent that the process takes polynomial time in the size of the input. \\
+			
+			\noindent
+			Since conditions (i-iv) are satisfied, we can say that DK is NP-complete.
+			
+	\subsection*{(c)}
+		To solve the 0/1 KNAPSACK problem requires a check of all possible solutions against each other. That is to say that each instance of DK that gives a 'yes' answer must be compared with every other solution before we can say that we have the optimal profit. Therefore solving for the optimal solution must be at least as hard as a single instance of DK. Even if we restrict V to a specific value, we find solving 0/1 KNAPSACK requires us to solve a sequence of decision problems (one for each configuration $X$) until a 'yes' answer is produced. This means that 0/1 KNAPSACK is \textit{at least} as hard as DK, which we know to be NP-complete. Therefore we can assume that 0/1 KNAPSACK  must reside in NP-hard. 

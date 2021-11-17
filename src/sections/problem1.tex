@@ -38,7 +38,6 @@
   					\State\textbf{return} \textit{max}(X[n-2], Y[n-1])
   					\EndIf
   					\EndProcedure
-  					
   				\end{algorithmic}
   			\end{algorithm}	
     	\subsection*{(c)}
@@ -75,11 +74,9 @@
     		\caption{Calculate median element of two sorted arrays}
     		\begin{algorithmic}[1]
     			\Procedure{{{medianElement} } }{\textbf{int} X[n], \textbf{int} Y[n]}
-    			\State int low = 0
-    			\State int high = X.length
+    			\State int low = 0, high = X.length
     			\While{low $\leq$ high}
-	    			\State int mid1 = (low + high)/2
-	    			\State int mid2 = X.length - mid1
+	    			\State int mid1 = (low + high)/2, \quad mid2 = X.length - mid1
 	    			\State lx = X[mid1 - 1]
 	    			\State ly = Y[mid2 - 1]
 	    			\State rx = X[mid1]

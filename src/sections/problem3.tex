@@ -11,12 +11,27 @@
 	
 	\noindent
 	(a) If P $\neq$ NP, then no problem in NP can be solved in polynomial time deterministically.\\
-	(b) If a decision problem A is NP-complete, proving that A is reducible to B, in polynomial time, is
-	
-	 sufficient to show that B is NP-complete.\\
-	(c) It is known that SAT (Satisfiability) is NP-complete, and 3SAT (all clauses have size 3) is
-	
-	 NP-complete. 1SAT (all clauses have size 1) is also NP-complete.
+	(b) If a decision problem A is NP-complete, proving that A is reducible to B, in polynomial time, is sufficient to show that B is NP-complete.\\
+	(c) It is known that SAT (Satisfiability) is NP-complete, and 3SAT (all clauses have size 3) is NP-complete. 1SAT (all clauses have size 1) is also NP-complete.
 	
 \section*{Solution}
-******* SOLUTION GOES HERE *******
+	\subsection*{(a)}
+		\textbf{False}\\
+		The class of problems defined as P consists of the set of decision problems $\Pi$ that can be solved by a deterministic Turing machine using a polynomial amount of computation time. This class of problems is known to be a subset of NP, that is $P\subseteq NP$, and therefore, every decision problem solvable by a polynomial time deterministic algorithm is also solvable by a  polynomial time nondeterministic algorithm. Suppose that the decision problem $\Pi \in P$ has a polynomial deterministic algorithm $A$. We can obtain a polynomial time nondeterministic algorithm for $\Pi$ by using $A$ as the checking stage and ignoring the guess. Therefore, $\Pi \in P \implies \Pi \in NP$.
+		
+	\subsection*{(b)}
+		\textbf{False}\\
+		The process of devising an NP-completeness proof for a decision problem $\Pi$ consists of 4 stages:\\
+		
+		\noindent
+		i) Show that $\Pi \in NP$\\
+		ii) Select a known NP-complete problem $\Pi'$\\
+		iii) Construct a transformation $f: \Pi' \rightarrow \Pi$\\
+		iv) Prove that $f$ is a polynomial time transformation\\
+		
+		\noindent
+		For the given scenario, conditions ii, iii, and iv are satisfied. However it was never stated that $B \in NP$. Therefore we cannot yet say that $B$ is NP-complete. 
+		
+	\subsection*{(c)}
+		\textbf{False}\\
+		Let $U = \{u_1, u_2 \dots u_n\}$ be a set of boolean variables and let the function $t$ be the truth assignment of $U$ such that $t:U\rightarrow\{T,F\}$. If we allow the set of literals over $U$ to form a clause over $U$ in the form $C = \{\{u_1\}, \{u_2\} \dots \{u_n\}\}$, then a satisfying truth assignment will take the form $t(u_1) = t(u_2)= \dots = t(u_n) = T$. It a simple matter of scanning $C$ for an instance of $\neg u_i$ from $1\leq i \leq n$. Therefore, since 1SAT is solvable in a time on the order of $O(n)$ we can say that 1SAT $\in P$.
