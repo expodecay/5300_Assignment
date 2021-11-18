@@ -16,15 +16,23 @@
     (d) What is the complexity of your algorithm?
 \section*{Solution}
 	\subsection*{(a)}
-		Consider the case of $\sum Z = \sum Z-Z'$. For a solution to exist, two conditions must be satisfied:\\
-		$\bullet$ The sum of the total number integers $\sum_{i=1}^{n} z_i$ must be even. If it is odd, then the set cannot be divided into two equal subsets. \\
-		$\bullet$ If $\exists$ a sum $S_1 = \sum_{i=1}^{m} z_i = \frac{1}{2}\sum_{i=1}^{n} z_i $, where $m < n$, then we are guaranteed to have the remaining $Z-Z'$ elements equal to $S_2 = \frac{1}{2}\sum_{i=1}^{n} z_i$. The set can be broken into two equal sums.\\
+		Consider the case of $\sum Z = \sum Z-Z'$. 
+		For a solution to exist, two conditions must be satisfied:\\
+		$\bullet$ The sum of the total number integers $\sum_{i=1}^{n} z_i$ must be even. 
+		If it is odd, then the set cannot be divided into two equal subsets. \\
+		$\bullet$ If $\exists$ a sum $S_1 = \sum_{i=1}^{m} z_i = \frac{1}{2}\sum_{i=1}^{n} z_i $, where $m < n$, then we are guaranteed to have the remaining $Z-Z'$ elements equal to $S_2 = \frac{1}{2}\sum_{i=1}^{n} z_i$. 
+		The set can be broken into two equal sums.\\
 		
 		\noindent
-		Consider the example of $Z = \{1,3,5,11\}$. The fist condition passes with $\sum_{i=1}^{n} z_i = 20$ \ding{51} however, the second condition requires us to find a subset whose sum is equal to $S_1 = \frac{1}{2}\sum_{i=1}^{n} z_i = 10$. The best we can do in this case is $Z_1 = \{1,3,5\}\rightarrow S_1 = 9\neq 10$ and $Z_2 = \{11\}\rightarrow S_2 = 11$ \ding{55}. $\therefore$ this $Z$ input will return false.\\
+		Consider the example of $Z = \{1,3,5,11\}$. 
+		The fist condition passes with $\sum_{i=1}^{n} z_i = 20$ \ding{51} however, the second condition requires us to find a subset whose sum is equal to $S_1 = \frac{1}{2}\sum_{i=1}^{n} z_i = 10$. 
+		The best we can do in this case is $Z_1 = \{1,3,5\}\rightarrow S_1 = 9\neq 10$ and $Z_2 = \{11\}\rightarrow S_2 = 11$ \ding{55}. 
+		$\therefore$ this $Z$ input will return false.\\
 
 		\noindent
-		Now consider $Z = \{3,1,1,2,2,1\}$. The first condition passes with $\sum_{i=1}^{n} z_i = 10$ \ding{51}, and the second condition passes since $Z_1 = \{3,1,1\} \rightarrow S_1 = 5$ and $Z_2 = \{2,2,1\} \rightarrow S_2 = 5$ \ding{51}. $\therefore$ this $Z$ input will return true.
+		Now consider $Z = \{3,1,1,2,2,1\}$. 
+		The first condition passes with $\sum_{i=1}^{n} z_i = 10$ \ding{51}, and the second condition passes since $Z_1 = \{3,1,1\} \rightarrow S_1 = 5$ and $Z_2 = \{2,2,1\} \rightarrow S_2 = 5$ \ding{51}. 
+		$\therefore$ this $Z$ input will return true.
 
 		\begin{center}
 			\scalebox{0.75}{%}
@@ -84,7 +92,9 @@
 		\begin{equation*}
 			\boxed{f_i[s,z_i] = max\{f_{i-1}(s), f_{i-1}(s-z_i)\}}
 		\end{equation*}
-		If we find the last cell to be true, then it IS possible to form the value $\frac{S}{2}$ with the given assortment of Z. This relation also holds for the case of $\sum Z' = \sum 2(Z-Z')$ since we are just moving the partition while preserving the total sum. However we do need to change the first condition to only allow a target sum divisible by 3, in which case the second condition is changed to $S_1 = \frac{2}{3}\sum_{i=1}^{n} z_i$ and $S_2 = \frac{1}{3}\sum_{i=1}^{n} z_i$. 
+		If we find the last cell to be true, then it IS possible to form the value $\frac{S}{2}$ with the given assortment of Z. 
+		This relation also holds for the case of $\sum Z' = \sum 2(Z-Z')$ since we are just moving the partition while preserving the total sum. 
+		However we do need to change the first condition to only allow a target sum divisible by 3, in which case the second condition is changed to $S_1 = \frac{2}{3}\sum_{i=1}^{n} z_i$ and $S_2 = \frac{1}{3}\sum_{i=1}^{n} z_i$. 
 	
 		\subsection*{(b)}
 		\vspace{-0.5cm}
@@ -147,7 +157,8 @@
 						\hline
 				\end{tabular}}
 			\end{center}
-			Since the algorithm halts with a 1 on cell $f(z_5, 7)$, the instance will return \textit{true}. The algorithm can be slightly improved by returning a \textit{true} at the first occurrence of the target sum $s[7] \leftarrow 1$ because we know at that point that the remaining elements will sum to $\frac{2}{3}$ total sum. 
+			Since the algorithm halts with a 1 on cell $f(z_5, 7)$, the instance will return \textit{true}. 
+			The algorithm can be slightly improved by returning a \textit{true} at the first occurrence of the target sum $s[7] \leftarrow 1$ because we know at that point that the remaining elements will sum to $\frac{2}{3}$ total sum. 
 		\subsection*{(d)}
 			Since the algorithm must iterate through $\frac{1}{3}sum$ columns and $Z$  rows, the time complexity must be on the order of $O(Tn)$, where $T = \frac{sum}{3}$.
 		

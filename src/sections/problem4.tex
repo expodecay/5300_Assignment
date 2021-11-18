@@ -7,7 +7,7 @@
 	\noindent
 	\underline{\textbf{PARTITION}}:\\
 	\underline{Instance}: A finite set of positive integers $Z = \{ z_1 , z_2 , ... , z_n \}$.\\
-	\underline{Question}: Is there a subset Z' of Z such that \\
+	\underline{Question}: Is there a subset Z' of Z such that\\
 	Sum of all numbers in Z' = Sum of all numbers in Z-Z'\\
 	
 	\noindent
@@ -33,7 +33,8 @@
 				\EndIf
 			\end{algorithmic}
 		\end{algorithm}
-	The algorithm will run in polynomial time since checking the sum of a sequence is on the order of $O(n)$. Since the algorithm utilizes a guessing and is able to verify the guess in polynomial time, we can say that the Sum-of-Subsets problem resides in NP. 
+	The algorithm will run in polynomial time since checking the sum of a sequence is on the order of $O(n)$.
+	Since the algorithm utilizes a guessing and is able to verify the guess in polynomial time, we can say that the Sum-of-Subsets problem resides in NP. 
 	\subsection*{(b)}
 		
 		Let $f(\langle Z \rangle)$ be a mapping that takes an instance of the Partition problem $\langle Z \rangle$ and returns an instance of Sum-of-Subsets problem $\langle A, M \rangle$. Let $f()$ create a target sum M from Z such that \[ \frac{1}{2}\sum_{i=1}^{n} z_i\equiv M\] If we let $n=m$ and let $Z = A$, then $f:\langle Z \rangle \rightarrow \langle A,M\rangle$
@@ -60,5 +61,8 @@
 					$Y_{\langle Z \rangle} :$ can be partitioned into two sets with equal sum.  
 			\end{itemize}
 		\end{proof}
-	The above is an example of 'proof by restriction'. The idea consists of showing that $\Pi$ contains a known NP-complete problem $\Pi'$ as a special case by imposing a restriction on the instances of $\Pi$ so that the resulting problem preserves a one-to-one correspondence between the 'yes' and 'no' answers. It's worth noting that the resulting problem need not be an exact duplicate of the original problem so long as the correspondence is obvious. 
+	\noindent
+	The above is an example of 'proof by restriction'. 
+	The idea consists of showing that $\Pi$ contains a known NP-complete problem $\Pi'$ as a special case by imposing a restriction on the instances of $\Pi$ so that the resulting problem preserves a one-to-one correspondence between the 'yes' and 'no' answers. 
+	It's worth noting that the resulting problem need not be an exact duplicate of the original problem so long as the correspondence is obvious. 
 	

@@ -2,10 +2,13 @@
 %! Date = 9/1/2021
 
 \section*{Problem 6}
-	\textbf{\underline{Optimization PS(3) Problem:}} Given a set of n program and three storage devices. Let $s_i$ be the amount of storage needed to store the $i^{th}$ program. Let L be the storage capacity of each disk. Determine the maximum number of these n programs that can be stores on the three disks (without splitting a program over the disks).\\
+	\textbf{\underline{Optimization PS(3) Problem:}} Given a set of n program and three storage devices. 
+	Let $s_i$ be the amount of storage needed to store the $i^{th}$ program. 
+	Let L be the storage capacity of each disk. Determine the maximum number of these n programs that can be stores on the three disks (without splitting a program over the disks).\\
 	
 	\noindent
-	Use the Approximation PS Algorithm given in the class for the PS(3) problem given above. Show that the following is true.\\
+	Use the Approximation PS Algorithm given in the class for the PS(3) problem given above. 
+	Show that the following is true.\\
 	
 	\noindent
 	Let the approximation PS algorithm returns a number $C$, and let $C^*$ be the optimal (maximum) number of programs that can be stores on the three disks.\\
@@ -34,15 +37,28 @@
 	\end{algorithm}
 
 	\subsection*{(a)}
-		Let $C^*$ be the maximum number of programs that can be stored on \textit{\underline{two} disks each of length $L$} and let $C$ be the number of programs stored using PStore. Assume that $k$ programs are stored when PStore is used so that $C=k$. If we consider the case of storing programs in non-decreasing order on a \textit{\underline{single} disk of length $2L$}, then the number of programs stored will be $\alpha$. We can say that \[\alpha \geq C^* \text{\quad and \quad} \sum_{1}^{\alpha}s[i] \leq 2L\]  If we let $j$ be the largest index such that \[\sum_{1}^{j}s[i] \leq L \text{\quad and \quad } \sum_{1}^{j+1}s[i] > L \] then we can say $j\leq \alpha$ and that PStore assigns the first $j$ programs to disk 1. We can also say that 
+		Let $C^*$ be the maximum number of programs that can be stored on \textit{\underline{two} disks each of length $L$} and let $C$ be the number of programs stored using PStore.
+		Assume that $k$ programs are stored when PStore is used so that $C=k$. 
+		If we consider the case of storing programs in non-decreasing order on a \textit{\underline{single} disk of length $2L$}, then the number of programs stored will be $\alpha$. 
+		We can say that 
+		\[\alpha \geq C^* \text{\quad and \quad} \sum_{1}^{\alpha}s[i] \leq 2L\]  
+		If we let $j$ be the largest index such that
+		\[\sum_{1}^{j}s[i] \leq L \text{\quad and \quad } \sum_{1}^{j+1}s[i] > L \] 
+		then we can say $j\leq \alpha$ and that PStore assigns the first $j$ programs to disk 1. 
+		We can also say that 
 		\begin{equation*}
 			\sum_{i = j+1}^{\alpha - 1}s[i] \leq \sum_{i = j+2}^{\alpha}s[i] \leq L
 		\end{equation*}
-		Hence, PStore will assign at least the fist $j+1, j+2, \dots \alpha -1$ programs to disk 2. This relation holds for any number of programs stored on any number of disks. If we consider an arbitrary number of disks $k$ and load them with programs in a non-decreasing order, then eventually the programs still be stored on the last $k^{th}-1$ and $k^{th}$ disk. We will find that the first batch of $j'$ programs will be stored on the $k^{th}-1$ disk, and that \textit{at least} the last $j'+1, j'+2, \dots \alpha' -1$ will be stored on the $k^{th}$ disk. So for each \textit{pair} of disks, space for one program is lost. Therefore, 
+		Hence, PStore will assign at least the first $j+1, j+2, \dots \alpha -1$ programs to disk 2. 
+		This relation holds for any number of programs stored on any number of disks. 
+		If we consider an arbitrary number of disks $k$ and load them with programs in a non-decreasing order, then eventually the programs still be stored on the last $k^{th}-1$ and $k^{th}$ disk. 
+		We will find that the first batch of $j'$ programs will be stored on the $k^{th}-1$ disk, and that \textit{at least} the last $j'+1, j'+2, \dots \alpha' -1$ will be stored on the $k^{th}$ disk. 
+		So for each \textit{pair} of disks, space for one program is lost. 
+		Therefore, 
 		\begin{equation*}
 			C^* \leq C + k - 1
 		\end{equation*}
-		For the case of $k = 3$ disks, space for one program is lost between disk 1 and 2, and another space is lost between disk 2 and 3, and the approximation algorithm PStore obtains a performance ration of 
+		For the case of $k = 3$ disks, space for one program is lost between disk 1 and 2, and another space is lost between disk 2 and 3, and the approximation algorithm PStore obtains a performance ratio of 
 		\begin{equation*}
 			\frac{C^*}{C} \leq 1 + \frac{2}{C}
 		\end{equation*} 
@@ -53,7 +69,7 @@
 		\usetikzlibrary{positioning}
 		\tikzset{
 			gray box/.style={
-				fill=gray!20,
+				fill=gray!15,
 				draw=gray,
 				minimum width={2*#1ex},
 				minimum height={2em},
@@ -62,10 +78,10 @@
 				anchor=south,
 			}
 		}
-
 		\begin{center}
 			\begin{tikzpicture}[node distance=-0.5pt]
-				\node [gray box=8] (p1) {s[1]};
+				\node [] (p0) {disk 1 \qquad};
+				\node [gray box=8, right=of p0] (p1) {s[1]};
 				\node [gray box=8, right=of p1] (p2) {s[2]};
 				\node [gray box=8, right=of p2] (p3) {s[3]};
 				\node [gray box=8, right=of p3] (p4) {};
@@ -79,7 +95,8 @@
 		\end{center}
 		\begin{center}
 			\begin{tikzpicture}[node distance=-0.5pt]
-				\node [gray box=12] (p1) {s[4]};
+				\node [] (p0) {disk 2 \qquad};
+				\node [gray box=12, right=of p0] (p1) {s[4]};
 				\node [gray box=12, right=of p1] (p2) {s[5]};
 				\node [gray box=8, right=of p2] (p3) {};
 				
@@ -91,7 +108,8 @@
 		\end{center}
 		\begin{center}
 			\begin{tikzpicture}[node distance=-0.5pt]
-				\node [gray box=12] (p1) {s[6]};
+				\node [] (p0) {disk 3 \qquad};
+				\node [gray box=12, right=of p0] (p1) {s[6]};
 				\node [gray box=12, right=of p1] (p2) {s[7]};
 				\node [gray box=8, right=of p2] (p3) {};
 

@@ -9,7 +9,7 @@
 
     \section*{Problem 1}
     \noindent
-    Let X(1..n) and Y(1..n) contain two lists of n integers, each sorted in nondecreasing order. Give the best (worst-case complexity) algorithm that you can think for finding \\
+    Let X(1..n) and Y(1..n) contain two lists of n integers, each sorted in non-decreasing order. Give the best (worst-case complexity) algorithm that you can think for finding \\
     (a) the largest integer of all 2n combined elements.\\
     (b) the second largest integer of all 2n combined elements.\\
     (c) the median (or the nth smallest integer) of all 2n combined elements.\\
@@ -41,7 +41,8 @@
   				\end{algorithmic}
   			\end{algorithm}	
     	\subsection*{(c)}
-    		By looking at the two sorted arrays, we see that the median value will correspond to the nth term in the list of length 2n, and that this portion of the list contains part of X[\:] and Y[\:]. Also, note that the last element of any subset of the two sorted lists, starting at index zero, will always correspond to the kth element. \\
+    		By looking at the two sorted arrays, we see that the median value will correspond to the nth term in the list of length 2n, and that this portion of the list contains part of X[\:] and Y[\:]. 
+    		Also, note that the last element of any subset of the two sorted lists, starting at index zero, will always correspond to the $k^{th}$ element. \\
     		\begin{center}\leavevmode\vbox{
     			\halign{&\thinspace\aryitem{$\mathstrut#$}\thinspace\cr
 	    			1&2&4&5&7&8&9&9&10&12\cr
@@ -50,7 +51,7 @@
     		}}
     	\end{center}
     	\noindent
-    		If we look at the two list individually, we find that the elements that lead up to the partition of the kth element are \\
+    		If we look at the two list individually, we find that the elements that lead up to the partition of the $k^{th}$ element are \\
     		\begin{center}\leavevmode\vbox{
     			\halign{&\thinspace\aryitem{$\mathstrut#$}\thinspace\cr
 	    			4&7&\omit\quad&\omit\quad &8&9&12\cr
@@ -58,18 +59,25 @@
     		}}
     	\end{center}
     	\noindent
-    	Let the elements to the left and right of the partition of the first array be $l_x$ and $r_x$ respectively. And similarly, for the second array, $l_y$ and $r_y$. Notice that for the solution to be valid, ie, for all the elements to the left of the partition to be less than all the elements to the right, requires
+    	Let the elements to the left and right of the partition of the first array be $l_x$ and $r_x$ respectively. 
+    	And similarly, for the second array, $l_y$ and $r_y$. 
+    	Notice that for the solution to be valid, ie, for all the elements to the left of the partition to be less than all the elements to the right, requires
     	\begin{equation*}
     		\begin{split}
     			l_x \leq r_y \\
     			l_y \leq r_x
     		\end{split}
     	\end{equation*}
-    	Only these conditions need to be checked because we are guaranteed to have $l_x \leq r_x$ and $l_y \leq r_y$. Once these conditions are satisfied, the kth element will be $max(l_x, l_y)$ because we know that in the combined array, the largest element to the left of the partition corresponds to the kth element. To find the partition, we apply a binomial search to only one array while checking the conditions against both arrays. We start by taking the midpoint of the first array
+    	Only these conditions need to be checked because we are guaranteed to have $l_x \leq r_x$ and $l_y \leq r_y$. 
+    	Once these conditions are satisfied, the $k^{th}$ element will be $max(l_x, l_y)$ because we know that in the combined array, the largest element to the left of the partition corresponds to the $k^{th}$ element. 
+    	To find the partition, we apply a binomial search to only one array while checking the conditions against both arrays. 
+    	We start by taking the midpoint of the first array
     	\begin{equation*}
     		mid1 = \frac{low + high}{2}
     	\end{equation*}
-    	and let the remaining $ mid2 = n-mid1$ elements be taken from the second array, where low and high are initially set to 0 and n respectively. If we find that $l_x > r_y$, we cut out the right half of the array by assigning $high = mid1 - 1$ and if we find that $l_y > r_x$, we remove the left half of the array by assigning $low = mid + 1$. Since the algorithm utilizes a binomial search, the time complexity will be $\mathcal{O}(\log{}n)$.
+    	and let the remaining $ mid2 = n-mid1$ elements be taken from the second array, where low and high are initially set to 0 and n respectively. 
+    	If we find that $l_x > r_y$, we cut out the right half of the array by assigning $high = mid1 - 1$ and if we find that $l_y > r_x$, we remove the left half of the array by assigning $low = mid + 1$. 
+    	Since the algorithm utilizes a binomial search, the time complexity will be $\mathcal{O}(\log{}n)$.
     	\begin{algorithm}[H]
     		\caption{Calculate median element of two sorted arrays}
     		\begin{algorithmic}[1]

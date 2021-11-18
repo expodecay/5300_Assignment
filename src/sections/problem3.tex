@@ -1,6 +1,6 @@
 %! Author = rickr
 %! Date = 9/1/2021
-
+\vspace{1cm}
 \section*{Problem 3}
 	Decide True or False for each of the followings. You MUST briefly justify your answer.\\
 	
@@ -17,8 +17,12 @@
 \section*{Solution}
 	\subsection*{(a)}
 		\textbf{False}\\
-		The class of problems defined as P consists of the set of decision problems $\Pi$ that can be solved by a deterministic Turing machine using a polynomial amount of computation time. This class of problems is known to be a subset of NP, that is $P\subseteq NP$, and therefore, every decision problem solvable by a polynomial time deterministic algorithm is also solvable by a  polynomial time nondeterministic algorithm. Suppose that the decision problem $\Pi \in P$ has a polynomial deterministic algorithm $A$. We can obtain a polynomial time nondeterministic algorithm for $\Pi$ by using $A$ as the checking stage and ignoring the guess. Therefore, $\Pi \in P \implies \Pi \in NP$.
-		
+		The class of problems defined as P consists of the set of decision problems $\Pi$ that can be solved by a deterministic Turing machine using a polynomial amount of computation time. 
+		This class of problems is known to be a subset of NP, that is $P\subseteq NP$, and therefore, every decision problem solvable by a polynomial time deterministic algorithm is also solvable by a  polynomial time nondeterministic algorithm. 
+		Suppose that the decision problem $\Pi \in P$ has a polynomial deterministic algorithm $A$. 
+		We can obtain a polynomial time nondeterministic algorithm for $\Pi$ by using $A$ as the checking stage and ignoring the guess. Therefore, $\Pi \in P \implies \Pi \in NP$.
+	
+	\newpage
 	\subsection*{(b)}
 		\textbf{False}\\
 		The process of devising an NP-completeness proof for a decision problem $\Pi$ consists of 4 stages:\\
@@ -30,8 +34,12 @@
 		iv) Prove that $f$ is a polynomial time transformation\\
 		
 		\noindent
-		For the given scenario, conditions ii, iii, and iv are satisfied. However it was never stated that $B \in NP$. Therefore we cannot yet say that $B$ is NP-complete. 
+		For the given scenario, conditions ii, iii, and iv are satisfied. 
+		However it was never stated that $B \in NP$. Therefore we cannot yet say that $B$ is NP-complete. 
 		
 	\subsection*{(c)}
 		\textbf{False}\\
-		Let $U = \{u_1, u_2 \dots u_n\}$ be a set of boolean variables and let the function $t$ be the truth assignment of $U$ such that $t:U\rightarrow\{T,F\}$. If we allow the set of literals over $U$ to form a clause over $U$ in the form $C = \{\{u_1\}, \{u_2\} \dots \{u_n\}\}$, then a satisfying truth assignment will take the form $t(u_1) = t(u_2)= \dots = t(u_n) = T$. It a simple matter of scanning $C$ for an instance of $\neg u_i$ from $1\leq i \leq n$. Therefore, since 1SAT is solvable in a time on the order of $O(n)$ we can say that 1SAT $\in P$.
+		Let $U = \{u_1, u_2 \dots u_n\}$ be a set of boolean variables and let the function $t$ be the truth assignment of $U$ such that $t:U\rightarrow\{T,F\}$. 
+		If we allow the set of literals over $U$ to form a clause over $U$ in the form $C = \{\{u_1\}, \{u_2\} \dots \{u_n\}\}$, then a satisfying truth assignment will take the form $t(u_1) = t(u_2)= \dots = t(u_n) = T$. 
+		It a simple matter of scanning $C$ for an instance of $\neg u_i$ from $1\leq i \leq n$. 
+		Therefore, since 1SAT is solvable in a time on the order of $O(n)$ we can say that 1SAT $\in P$.
