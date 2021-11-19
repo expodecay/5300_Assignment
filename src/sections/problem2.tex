@@ -136,7 +136,7 @@
 			\end{algorithm}
 
 		\subsection*{(c)}
-			Let $Z = 1,2,4,6,8$, $sum = \sum_{i = 1}^{n} z[i] = 21$, and $M = \frac{1}{3}sum = 7$
+			Let $Z = 1,2,3,5,10$, $sum = \sum_{i = 1}^{n} z[i] = 21$, and $M = \frac{1}{3}sum = 7$
 				\begin{center}
 				\scalebox{0.75}{%}
 					\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
@@ -149,15 +149,15 @@
 						\hline
 						$z_2$=2&1 &1 &1 &1 &0 &0 &0 &0\\
 						\hline
-						$z_3$=4&1 &1 &1 &1 &1 &1 &1 &1\\
+						$z_3$=3&1 &1 &1 &1 &1 &1 &1 &0\\
 						\hline
-						$z_4$=6&1 &1 &1 &1 &1 &1 &1 &1\\
+						$z_4$=5&1 &1 &1 &1 &1 &1 &1 &1\\
 						\hline
-						$z_5$=8&1 &1 &1 &1 &1 &1 &1 &1\\
+						$z_5$=10&1 &1 &1 &1 &1 &1 &1 &1\\
 						\hline
 				\end{tabular}}
 			\end{center}
-			Since the algorithm halts with a 1 on cell $f(z_5, 7)$, the instance will return \textit{true}. 
+			Since the algorithm halts with a 1 on cell $f(z_5, s_7)$, the instance will return \textit{true}. 
 			The algorithm can be slightly improved by returning a \textit{true} at the first occurrence of the target sum $s[7] \leftarrow 1$ because we know at that point that the remaining elements will sum to $\frac{2}{3}$ total sum. 
 		\subsection*{(d)}
 			Since the algorithm must iterate through $\frac{1}{3}sum$ columns and $Z$  rows, the time complexity must be on the order of $O(Tn)$, where $T = \frac{sum}{3}$.
