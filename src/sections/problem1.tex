@@ -8,7 +8,7 @@
 	\let\MS\multispan% shorten a little
 
     \section*{Problem 1}
-    \noindent
+    
     Let X(1..n) and Y(1..n) contain two lists of n integers, each sorted in non-decreasing order. Give the best (worst-case complexity) algorithm that you can think for finding \\
     (a) the largest integer of all 2n combined elements.\\
     (b) the second largest integer of all 2n combined elements.\\
@@ -18,7 +18,7 @@
     \section*{Solution:}
     	\subsection*{(a)}
   				\begin{algorithm}[H]
-  					\caption{Calculates the largest element of two sorted arrays}
+  					\caption{Calculate the largest element of two sorted arrays}
   					\begin{algorithmic}[1]
   						\Procedure{{largestElement} }{\textbf{int} X[n], \textbf{int} Y[n]}
   						\State \textbf{return} \textit{max}(X[n-1], Y[n-1])
